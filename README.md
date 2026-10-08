@@ -32,5 +32,10 @@ netlify.toml                     hosting settings
 3. Drag entries to reorder. The first one is the big photo at the top.
 4. Click **Save**. The live site updates within a minute or two.
 
+The **Modeling tab** and **Video tab** lists work the same way. For a video, upload it to
+YouTube or Vimeo (unlisted is fine) and paste the link. YouTube covers appear automatically,
+and Vimeo videos need a cover image uploaded. A tab with no entries is hidden from the site.
+Each tab has its own link: `yourdomain.com/#photography`, `#modeling`, `#video`.
+
 Tips: export photos as JPG, about 2400px on the long side and under 1 MB each, so
 the site stays fast. Delete the `sample-*` entries once real photos are in.

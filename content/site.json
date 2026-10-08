@@ -1,6 +1,6 @@
 {
   "name": "Nadean",
-  "tagline": "Landscape & nature photography",
+  "tagline": "Photography, modeling & video",
   "based_in": "Based in Hawaiʻi",
   "bio": "Draft bio: replace with Nadean's own words.\n\nI photograph quiet places: ridgelines at first light, weather moving across open water, the small details of a forest floor after rain. I have been making landscape and nature images for over ten years, working mostly on foot and often returning to the same location across seasons to wait for the right conditions.\n\nMy work has been shown in local galleries and used by conservation groups, tourism boards and publications. I take on commissions, print sales and image licensing, and I am always glad to talk about a project.",
   "portrait": "",
@@ -13,5 +13,16 @@
     { "image": "/images/sample-04.svg", "title": "Blue hour", "location": "Mauna Kea", "year": "2023" },
     { "image": "/images/sample-05.svg", "title": "Dry season", "location": "Kaʻū Desert", "year": "2024" },
     { "image": "/images/sample-06.svg", "title": "Cloud line", "location": "Kōkeʻe", "year": "2025" }
+  ],
+  "modeling": [
+    { "image": "/images/model-sample-01.svg", "title": "Editorial", "credit": "Photographer name", "year": "2025" },
+    { "image": "/images/model-sample-02.svg", "title": "Swimwear campaign", "credit": "Photographer name", "year": "2025" },
+    { "image": "/images/model-sample-03.svg", "title": "Outdoor apparel", "credit": "Photographer name", "year": "2024" },
+    { "image": "/images/model-sample-04.svg", "title": "Portrait session", "credit": "Photographer name", "year": "2024" }
+  ],
+  "videos": [
+    { "url": "", "thumbnail": "/images/video-sample-01.svg", "title": "Coastline film", "details": "Director, camera, edit", "year": "2025" },
+    { "url": "", "thumbnail": "/images/video-sample-02.svg", "title": "Brand short", "details": "Camera, color", "year": "2024" },
+    { "url": "", "thumbnail": "/images/video-sample-03.svg", "title": "Trail documentary", "details": "Camera, drone", "year": "2024" }
   ]
 }

@@ -12,13 +12,15 @@
   }
 
   const photos = (site.photos || []).filter((p) => p && p.image);
+  const modeling = (site.modeling || []).filter((p) => p && p.image);
+  const videos = (site.videos || []).filter((v) => v && (v.url || v.thumbnail || v.title));
 
   // Text fields
   document.querySelectorAll("[data-bind]").forEach((el) => {
     const v = site[el.dataset.bind];
     if (v) el.textContent = v;
   });
-  if (site.name) document.title = site.name + " · " + (site.tagline || "Photography");
+  if (site.name) document.title = site.name + " · " + (site.tagline || "Portfolio");
   const meta = document.querySelector('meta[name="description"]');
   if (meta && site.tagline) meta.content = site.tagline + " by " + site.name + ".";
   $("year").textContent = new Date().getFullYear();
@@ -68,81 +70,223 @@
     $("social").hidden = false;
   }
 
-  // Captions
-  function caption(el, p) {
+  // Captions: italic title, then small uppercase details
+  function caption(el, title, details) {
     el.textContent = "";
-    if (p.title) {
+    if (title) {
       const t = document.createElement("span");
       t.className = "t";
-      t.textContent = p.title;
+      t.textContent = title;
       el.appendChild(t);
     }
-    const meta = [p.location, p.year].filter(Boolean).join(" · ");
-    if (meta) {
-      const m = document.createElement("span");
-      m.className = "m";
-      m.textContent = meta;
-      el.appendChild(m);
+    const m = details.filter(Boolean).join(" · ");
+    if (m) {
+      const s = document.createElement("span");
+      s.className = "m";
+      s.textContent = m;
+      el.appendChild(s);
     }
   }
-  const altFor = (p) => [p.title, p.location].filter(Boolean).join(", ") || "Photograph by " + (site.name || "the artist");
+  const photoCap = (p) => [p.title, [p.location, p.year]];
+  const modelCap = (p) => [p.title, [p.credit && "Photo: " + p.credit, p.year]];
+  const videoCap = (v) => [v.title, [v.details, v.year]];
+  const altFor = (p, fallback) => [p.title, p.location].filter(Boolean).join(", ") || fallback;
 
-  if (!photos.length) {
-    $("empty").hidden = false;
-    return;
+  // Video links: YouTube, Vimeo, or a direct video file
+  function parseVideo(url) {
+    if (!url) return null;
+    let m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/);
+    if (m) return {
+      kind: "iframe",
+      src: "https://www.youtube-nocookie.com/embed/" + m[1] + "?autoplay=1&rel=0",
+      thumb: "https://i.ytimg.com/vi/" + m[1] + "/hqdefault.jpg",
+    };
+    m = url.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([\da-f]+))?/);
+    if (m) {
+      const h = m[2] || (url.match(/[?&]h=([\da-f]+)/) || [])[1];
+      return { kind: "iframe", src: "https://player.vimeo.com/video/" + m[1] + "?autoplay=1" + (h ? "&h=" + h : "") };
+    }
+    if (/\.(mp4|webm|mov)(\?|$)/i.test(url)) return { kind: "file", src: url };
+    return { kind: "link", src: url };
   }
 
-  // Lead image is the first photo; the wall shows the rest
-  const lead = photos[0];
-  $("lead-img").src = lead.image;
-  $("lead-img").alt = altFor(lead);
-  caption($("lead-cap"), lead);
-  $("lead").hidden = false;
-  $("lead").querySelector("button").addEventListener("click", () => openViewer(0));
+  // Viewer items for each tab
+  const fallbackAlt = "Photograph by " + (site.name || "the artist");
+  const lists = {
+    photography: photos.map((p) => ({ kind: "image", src: p.image, alt: altFor(p, fallbackAlt), cap: photoCap(p) })),
+    modeling: modeling.map((p) => ({ kind: "image", src: p.image, alt: p.title || "Modeling photograph", cap: modelCap(p) })),
+    video: videos.map((v) => ({ kind: "video", video: parseVideo(v.url), title: v.title, cap: videoCap(v) })),
+  };
 
-  const n = photos.length;
-  $("count").textContent = n + (n === 1 ? " photograph" : " photographs");
-
-  const grid = $("grid");
-  photos.slice(1).forEach((p, i) => {
+  function tile(item, onOpen) {
     const fig = document.createElement("figure");
     fig.className = "tile";
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.setAttribute("aria-label", "Open " + altFor(p));
+    btn.setAttribute("aria-label", "Open " + item.alt);
     const img = document.createElement("img");
-    img.src = p.image;
-    img.alt = altFor(p);
+    img.src = item.src;
+    img.alt = item.alt;
     img.loading = "lazy";
     img.decoding = "async";
     btn.appendChild(img);
-    btn.addEventListener("click", () => openViewer(i + 1));
+    btn.addEventListener("click", onOpen);
     const cap = document.createElement("figcaption");
     cap.className = "cap";
-    caption(cap, p);
+    caption(cap, ...item.cap);
     fig.append(btn, cap);
-    grid.appendChild(fig);
+    return fig;
+  }
+
+  // Lead image: the first landscape photograph
+  if (photos.length) {
+    const lead = lists.photography[0];
+    $("lead-img").src = lead.src;
+    $("lead-img").alt = lead.alt;
+    caption($("lead-cap"), ...lead.cap);
+    $("lead").hidden = false;
+    $("lead").querySelector("button").addEventListener("click", () => openViewer("photography", 0));
+  }
+
+  // Photography wall skips the lead image, which is already shown large above
+  lists.photography.slice(1).forEach((item, i) => {
+    $("grid-photography").appendChild(tile(item, () => openViewer("photography", i + 1)));
   });
+  lists.modeling.forEach((item, i) => {
+    $("grid-modeling").appendChild(tile(item, () => openViewer("modeling", i)));
+  });
+  videos.forEach((v, i) => {
+    const item = lists.video[i];
+    const fig = document.createElement("figure");
+    fig.className = "tile video-tile";
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Play " + (v.title || "video"));
+    const thumb = v.thumbnail || (item.video && item.video.thumb);
+    if (thumb) {
+      const img = document.createElement("img");
+      img.src = thumb;
+      img.alt = "";
+      img.loading = "lazy";
+      btn.appendChild(img);
+    } else {
+      btn.classList.add("no-thumb");
+    }
+    const play = document.createElement("span");
+    play.className = "play";
+    play.setAttribute("aria-hidden", "true");
+    btn.appendChild(play);
+    btn.addEventListener("click", () => openViewer("video", i));
+    const cap = document.createElement("figcaption");
+    cap.className = "cap";
+    caption(cap, ...item.cap);
+    fig.append(btn, cap);
+    $("grid-video").appendChild(fig);
+  });
+
+  // Tabs
+  const tabNames = ["photography", "modeling", "video"];
+  const available = tabNames.filter((t) => lists[t].length);
+  tabNames.forEach((t) => {
+    const tab = $("tab-" + t);
+    tab.hidden = !lists[t].length;
+    const n = lists[t].length;
+    tab.querySelector(".n").textContent = String(n).padStart(2, "0");
+    tab.addEventListener("click", () => selectTab(t, true));
+  });
+  if (!available.length) {
+    $("empty").hidden = false;
+    return;
+  }
+  if (available.length < 2) $("work").querySelector(".tabs").classList.add("single");
+
+  function selectTab(name, updateHash) {
+    if (!available.includes(name)) name = available[0];
+    tabNames.forEach((t) => {
+      const on = t === name;
+      $("tab-" + t).setAttribute("aria-selected", on);
+      $("tab-" + t).tabIndex = on ? 0 : -1;
+      $("panel-" + t).hidden = !on;
+    });
+    if (updateHash) history.replaceState(null, "", "#" + name);
+  }
+  $("work").querySelector(".tabs").addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    const cur = available.indexOf(tabNames.find((t) => $("tab-" + t).getAttribute("aria-selected") === "true"));
+    const next = available[(cur + (e.key === "ArrowRight" ? 1 : available.length - 1)) % available.length];
+    selectTab(next, true);
+    $("tab-" + next).focus();
+  });
+  function fromHash() {
+    const h = location.hash.slice(1);
+    if (tabNames.includes(h)) {
+      selectTab(h, false);
+      $("work").scrollIntoView();
+    }
+  }
+  selectTab(available[0], false);
+  fromHash();
+  window.addEventListener("hashchange", fromHash);
 
   // Viewer
   const viewer = $("viewer");
+  const stage = $("viewer-media");
+  let list = [];
   let current = 0;
   function show(i) {
-    current = (i + n) % n;
-    const p = photos[current];
-    $("viewer-img").src = p.image;
-    $("viewer-img").alt = altFor(p);
-    caption($("viewer-cap"), p);
-    $("viewer-pos").textContent = String(current + 1).padStart(2, "0") + " / " + String(n).padStart(2, "0");
+    current = (i + list.length) % list.length;
+    const item = list[current];
+    stage.textContent = "";
+    if (item.kind === "image") {
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.alt = item.alt;
+      stage.appendChild(img);
+    } else {
+      const v = item.video;
+      if (v && v.kind === "iframe") {
+        const f = document.createElement("iframe");
+        f.src = v.src;
+        f.title = item.title || "Video";
+        f.allow = "autoplay; fullscreen; picture-in-picture";
+        f.allowFullscreen = true;
+        stage.appendChild(f);
+      } else if (v && v.kind === "file") {
+        const el = document.createElement("video");
+        el.src = v.src;
+        el.controls = true;
+        el.autoplay = true;
+        el.playsInline = true;
+        stage.appendChild(el);
+      } else {
+        const p = document.createElement("p");
+        p.className = "viewer-note";
+        if (v) {
+          const a = document.createElement("a");
+          a.href = v.src;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.textContent = "Watch this video";
+          p.appendChild(a);
+        } else {
+          p.textContent = "This video has not been linked yet.";
+        }
+        stage.appendChild(p);
+      }
+    }
+    caption($("viewer-cap"), ...item.cap);
+    $("viewer-pos").textContent = String(current + 1).padStart(2, "0") + " / " + String(list.length).padStart(2, "0");
+    $("viewer-prev").hidden = $("viewer-next").hidden = list.length < 2;
   }
-  function openViewer(i) {
+  function openViewer(tab, i) {
+    list = lists[tab];
     show(i);
     viewer.showModal();
   }
+  viewer.addEventListener("close", () => (stage.textContent = "")); // stops any playing video
   $("viewer-close").addEventListener("click", () => viewer.close());
   $("viewer-prev").addEventListener("click", () => show(current - 1));
   $("viewer-next").addEventListener("click", () => show(current + 1));
-  $("viewer-prev").hidden = $("viewer-next").hidden = n < 2;
   viewer.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") show(current - 1);
     if (e.key === "ArrowRight") show(current + 1);
@@ -152,7 +296,7 @@
   viewer.addEventListener("touchend", (e) => {
     if (touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50 && list[current].kind === "image") show(current + (dx < 0 ? 1 : -1));
     touchX = null;
   });
 })();

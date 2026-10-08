@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nadean · Landscape Photography</title>
-  <meta name="description" content="Landscape and nature photography by Nadean.">
+  <meta name="description" content="Photography, modeling and video by Nadean.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
@@ -41,10 +41,22 @@
     <section id="work" class="work" aria-labelledby="work-h">
       <div class="section-head">
         <h2 id="work-h">Work</h2>
-        <span class="mono count" id="count"></span>
+        <div class="tabs" role="tablist" aria-label="Portfolio categories">
+          <button type="button" role="tab" id="tab-photography" aria-controls="panel-photography" aria-selected="true">Photography <span class="n"></span></button>
+          <button type="button" role="tab" id="tab-modeling" aria-controls="panel-modeling" aria-selected="false" tabindex="-1">Modeling <span class="n"></span></button>
+          <button type="button" role="tab" id="tab-video" aria-controls="panel-video" aria-selected="false" tabindex="-1">Video <span class="n"></span></button>
+        </div>
       </div>
-      <div class="grid" id="grid"></div>
-      <p class="empty" id="empty" hidden>Photographs will appear here once they are added.</p>
+      <div role="tabpanel" id="panel-photography" aria-labelledby="tab-photography">
+        <div class="grid" id="grid-photography"></div>
+      </div>
+      <div role="tabpanel" id="panel-modeling" aria-labelledby="tab-modeling" hidden>
+        <div class="grid" id="grid-modeling"></div>
+      </div>
+      <div role="tabpanel" id="panel-video" aria-labelledby="tab-video" hidden>
+        <div class="videos" id="grid-video"></div>
+      </div>
+      <p class="empty" id="empty" hidden>Work will appear here once it is added.</p>
     </section>
 
     <section id="about" class="about" aria-labelledby="about-h">
@@ -79,7 +91,7 @@
     </div>
     <div class="viewer-stage">
       <button type="button" class="viewer-btn nav prev" id="viewer-prev" aria-label="Previous photograph">←</button>
-      <img id="viewer-img" alt="">
+      <div class="viewer-media" id="viewer-media"></div>
       <button type="button" class="viewer-btn nav next" id="viewer-next" aria-label="Next photograph">→</button>
     </div>
     <p class="cap viewer-cap" id="viewer-cap"></p>

@@ -23,8 +23,8 @@ content:
         description: e.g. "Based in Hilo, Hawaiʻi"
         type: string
       - name: photos
-        label: Photographs
-        description: The first photo is shown large at the top. Drag to reorder.
+        label: Photography tab
+        description: Her landscape work. The first photo is also shown large at the top of the site. Drag to reorder.
         type: object
         list: true
         fields:
@@ -39,6 +39,51 @@ content:
             type: string
           - name: location
             label: Location
+            type: string
+          - name: year
+            label: Year
+            type: string
+      - name: modeling
+        label: Modeling tab
+        description: Photos of Nadean as a model. Leave empty to hide the tab.
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: Photo
+            type: image
+            required: true
+            options:
+              extensions: [jpg, jpeg, png, webp, svg]
+          - name: title
+            label: Title or client
+            type: string
+          - name: credit
+            label: Photographer credit
+            type: string
+          - name: year
+            label: Year
+            type: string
+      - name: videos
+        label: Video tab
+        description: Paste a YouTube or Vimeo link. Leave empty to hide the tab.
+        type: object
+        list: true
+        fields:
+          - name: url
+            label: Video link
+            description: e.g. https://youtu.be/… or https://vimeo.com/…
+            type: string
+          - name: thumbnail
+            label: Cover image (optional)
+            description: YouTube videos get a cover automatically. Vimeo videos need one uploaded here.
+            type: image
+          - name: title
+            label: Title
+            type: string
+          - name: details
+            label: Role or client
+            description: e.g. "Director, camera, edit"
             type: string
           - name: year
             label: Year
