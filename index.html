@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nadean · Landscape Photography</title>
+  <meta name="description" content="Landscape and nature photography by Nadean.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <a class="skip" href="#work">Skip to photographs</a>
+
+  <header class="bar">
+    <a class="bar-name" href="#top" data-bind="name">Nadean</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="intro">
+      <h1 data-bind="name">Nadean</h1>
+      <p class="intro-line">
+        <span data-bind="tagline">Landscape &amp; nature photography</span>
+        <span class="mono" data-bind="based_in"></span>
+      </p>
+    </section>
+
+    <figure class="lead" id="lead" hidden>
+      <button class="lead-open" type="button" aria-label="Open photograph">
+        <img id="lead-img" alt="">
+      </button>
+      <figcaption class="cap" id="lead-cap"></figcaption>
+    </figure>
+
+    <section id="work" class="work" aria-labelledby="work-h">
+      <div class="section-head">
+        <h2 id="work-h">Work</h2>
+        <span class="mono count" id="count"></span>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden>Photographs will appear here once they are added.</p>
+    </section>
+
+    <section id="about" class="about" aria-labelledby="about-h">
+      <div class="about-media" id="portrait-wrap" hidden>
+        <img id="portrait" alt="Portrait of the photographer">
+      </div>
+      <div class="about-text">
+        <h2 id="about-h">About</h2>
+        <div class="bio" id="bio"></div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-h">
+      <h2 id="contact-h">Contact</h2>
+      <p class="contact-lede">For commissions, print sales and licensing, write to</p>
+      <p class="email-row">
+        <a class="email" id="email" href="#"></a>
+        <button class="copy" id="copy" type="button">Copy address</button>
+      </p>
+      <p class="mono social" id="social" hidden></p>
+    </section>
+  </main>
+
+  <footer class="foot mono">
+    <span>© <span id="year"></span> <span data-bind="name">Nadean</span>. All photographs are the property of the artist.</span>
+  </footer>
+
+  <dialog class="viewer" id="viewer" aria-label="Photograph viewer">
+    <div class="viewer-top mono">
+      <span id="viewer-pos"></span>
+      <button type="button" class="viewer-btn" id="viewer-close" aria-label="Close">Close ✕</button>
+    </div>
+    <div class="viewer-stage">
+      <button type="button" class="viewer-btn nav prev" id="viewer-prev" aria-label="Previous photograph">←</button>
+      <img id="viewer-img" alt="">
+      <button type="button" class="viewer-btn nav next" id="viewer-next" aria-label="Next photograph">→</button>
+    </div>
+    <p class="cap viewer-cap" id="viewer-cap"></p>
+  </dialog>
+
+  <script src="/main.js"></script>
+</body>
+</html>

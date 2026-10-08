@@ -1,0 +1,17 @@
+{
+  "name": "Nadean",
+  "tagline": "Landscape & nature photography",
+  "based_in": "Based in Hawaiʻi",
+  "bio": "Draft bio: replace with Nadean's own words.\n\nI photograph quiet places: ridgelines at first light, weather moving across open water, the small details of a forest floor after rain. I have been making landscape and nature images for over ten years, working mostly on foot and often returning to the same location across seasons to wait for the right conditions.\n\nMy work has been shown in local galleries and used by conservation groups, tourism boards and publications. I take on commissions, print sales and image licensing, and I am always glad to talk about a project.",
+  "portrait": "",
+  "email": "hello@example.com",
+  "instagram": "",
+  "photos": [
+    { "image": "/images/sample-01.svg", "title": "Morning haze", "location": "Koʻolau Range", "year": "2025" },
+    { "image": "/images/sample-02.svg", "title": "Last light", "location": "Haleakalā", "year": "2024" },
+    { "image": "/images/sample-03.svg", "title": "Valley floor", "location": "Waipiʻo", "year": "2025" },
+    { "image": "/images/sample-04.svg", "title": "Blue hour", "location": "Mauna Kea", "year": "2023" },
+    { "image": "/images/sample-05.svg", "title": "Dry season", "location": "Kaʻū Desert", "year": "2024" },
+    { "image": "/images/sample-06.svg", "title": "Cloud line", "location": "Kōkeʻe", "year": "2025" }
+  ]
+}

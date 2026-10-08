@@ -1,0 +1,59 @@
+# Pages CMS configuration: this is what Nadean sees at https://app.pagescms.org
+media:
+  input: images
+  output: /images
+
+content:
+  - name: portfolio
+    label: Portfolio
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: tagline
+        label: Tagline
+        description: Shown under your name, e.g. "Landscape & nature photography"
+        type: string
+      - name: based_in
+        label: Location line
+        description: e.g. "Based in Hilo, Hawaiʻi"
+        type: string
+      - name: photos
+        label: Photographs
+        description: The first photo is shown large at the top. Drag to reorder.
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: Photo
+            type: image
+            required: true
+            options:
+              extensions: [jpg, jpeg, png, webp, svg]
+          - name: title
+            label: Title
+            type: string
+          - name: location
+            label: Location
+            type: string
+          - name: year
+            label: Year
+            type: string
+      - name: bio
+        label: About / bio
+        description: Leave a blank line between paragraphs. The first paragraph is shown larger.
+        type: text
+      - name: portrait
+        label: Portrait (optional)
+        type: image
+      - name: email
+        label: Contact email
+        type: string
+        required: true
+      - name: instagram
+        label: Instagram handle (optional)
+        type: string
