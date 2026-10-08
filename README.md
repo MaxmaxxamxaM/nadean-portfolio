@@ -14,15 +14,15 @@ netlify.toml                     hosting settings
 
 ## One-time setup (about 30 minutes)
 
-1. **GitHub**: create a free account for Nadean at github.com. Create a new repository
-   (e.g. `nadean-portfolio`) and upload every file in this folder, including `.pages.yml`.
+1. **GitHub**: done. The site lives in the private repo `MaxmaxxamxaM/nadean-portfolio`.
 2. **Netlify**: sign up at netlify.com with that GitHub account → *Add new site* →
    *Import an existing project* → pick the repository. No build command; publish directory is the root.
    The site goes live at `something.netlify.app`.
 3. **Custom domain**: in Netlify → *Domain management* → *Add a domain*. Either buy it there,
    or point an existing domain's DNS at Netlify as instructed. HTTPS is set up automatically.
-4. **Admin panel**: Nadean goes to app.pagescms.org, signs in with GitHub, installs the
-   Pages CMS app on the repository, and opens it.
+4. **Admin panel**: go to app.pagescms.org, sign in with GitHub, and install the Pages CMS
+   app on this repository only. Then invite Nadean by email from the repo's
+   Collaborators settings in Pages CMS, so she can edit without a GitHub account.
 
 ## Day-to-day (for Nadean)
 
