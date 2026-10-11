@@ -7,16 +7,13 @@
       "image": "/images/Photos/Photos 2/5F927EB2-A181-49D8-914C-D16BCDA8B3FB.png"
     },
     {
-      "image": "/images/Photos/Photos 2/GPTempDownload-1.jpeg"
-    },
-    {
-      "image": "/images/Photos/Photos 2/GPTempDownload-2.jpeg"
+      "image": "/images/Photos/Photos 2/GPTempDownload-4.jpeg"
     },
     {
       "image": "/images/Photos/Photos 2/GPTempDownload-3.jpeg"
     },
     {
-      "image": "/images/Photos/Photos 2/GPTempDownload-4.jpeg"
+      "image": "/images/Photos/Photos 2/GPTempDownload-2.jpeg"
     },
     {
       "image": "/images/Photos/Photos 2/GPTempDownload-5.jpeg"
@@ -31,12 +28,6 @@
       "image": "/images/Photos/Photos 2/GPTempDownload-8.jpeg"
     },
     {
-      "image": "/images/Photos/Photos 2/GPTempDownload-10.jpeg"
-    },
-    {
-      "image": "/images/Photos/Photos 2/GPTempDownload-11.jpeg"
-    },
-    {
       "image": "/images/Photos/Photos 2/GPTempDownload-12.jpeg"
     },
     {
@@ -45,22 +36,26 @@
   ],
   "modeling": [
     {
-      "image": "/images/Photos/GPTempDownload.jpeg"
+      "image": "/images/Photos/GPTempDownload.jpeg",
+      "credit": "Self photograph "
     },
     {
-      "image": "/images/Photos/IMG_0614.jpeg"
+      "image": "/images/Photos/IMG_0615.jpeg",
+      "credit": "Kai York"
     },
     {
-      "image": "/images/Photos/IMG_0615.jpeg"
+      "image": "/images/Photos/IMG_0616.jpeg",
+      "credit": "Kai York"
     },
     {
-      "image": "/images/Photos/IMG_0616.jpeg"
-    },
-    {
-      "image": "/images/Photos/IMG_0617.jpeg"
+      "image": "/images/Photos/IMG_0617.jpeg",
+      "credit": "Kai York"
     },
     {
       "image": "/images/Photos/IMG_0618.jpeg"
+    },
+    {
+      "image": "/images/Photos/IMG_0614.jpeg"
     },
     {
       "image": "/images/Photos/IMG_0619.jpeg"
@@ -87,6 +82,5 @@
       "image": "/images/Photos/IMG_0628.jpeg"
     }
   ],
-  "bio": "I make photographs beneath the surface of the Pacific: freedivers suspended in shafts of light, eagle rays gliding over open sand, and the people and creatures who move along the reef.\n\nBased in Honolulu, I work in the water around Oʻahu, chasing clear visibility and the way sunlight breaks up as it falls through the sea.\n\nI also work in front of the camera as an underwater model, from costumed concept shoots to freediving and swimwear work, so I know both sides of a shoot in the water.\n\nI take on underwater portrait and editorial commissions, modeling bookings, print sales and image licensing, and I am always glad to talk about a project.",
   "email": "clane.nadean@gmail.com"
 }
