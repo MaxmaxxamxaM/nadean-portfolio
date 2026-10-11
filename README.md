@@ -7,7 +7,7 @@ Every save commits to GitHub, and GitHub Pages republishes the site within a few
 ```
 index.html, style.css, main.js   the site
 content/site.json                name, bio, email, photo list
-images/                          uploaded photos (sample-*.svg are placeholders to delete)
+images/                          uploaded photos
 .pages.yml                       what the admin panel shows
 CNAME, .nojekyll                 GitHub Pages settings (custom domain, publish files as-is)
 _headers                         cache settings for Cloudflare Pages (not used by GitHub Pages)
@@ -40,4 +40,4 @@ and Vimeo videos need a cover image uploaded. A tab with no entries is hidden fr
 Each tab has its own link: `yourdomain.com/#photography`, `#modeling`, `#video`.
 
 Tips: export photos as JPG, about 2400px on the long side and under 1 MB each, so
-the site stays fast. Delete the `sample-*` entries once real photos are in.
+the site stays fast.

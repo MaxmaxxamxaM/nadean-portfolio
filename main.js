@@ -33,6 +33,12 @@
     bio.appendChild(p);
   });
 
+  // About section can be switched off in the CMS while the bio is being written
+  if (site.show_about === false) {
+    $("about").hidden = true;
+    document.querySelector('.bar nav a[href="#about"]').hidden = true;
+  }
+
   if (site.portrait) {
     $("portrait").src = site.portrait;
     $("portrait-wrap").hidden = false;
