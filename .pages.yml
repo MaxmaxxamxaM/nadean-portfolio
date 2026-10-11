@@ -16,15 +16,15 @@ content:
         required: true
       - name: tagline
         label: Tagline
-        description: Shown under your name, e.g. "Landscape & nature photography"
+        description: Shown under your name, e.g. "Underwater photography & modeling"
         type: string
       - name: based_in
         label: Location line
-        description: e.g. "Based in Hilo, Hawaiʻi"
+        description: e.g. "Honolulu, Hawaiʻi"
         type: string
       - name: photos
         label: Photography tab
-        description: Her landscape work. The first photo is also shown large at the top of the site. Drag to reorder.
+        description: Her underwater photography. The first photo is also shown large at the top of the site. Drag to reorder.
         type: object
         list: true
         fields:
@@ -88,6 +88,10 @@ content:
           - name: year
             label: Year
             type: string
+      - name: show_about
+        label: Show About section
+        description: Turn off to hide the About section and its menu link, e.g. while the bio is being rewritten.
+        type: boolean
       - name: bio
         label: About / bio
         description: Leave a blank line between paragraphs. The first paragraph is shown larger.
