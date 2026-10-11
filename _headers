@@ -1,0 +1,6 @@
+# Cache rules for Cloudflare Pages (mirrors netlify.toml)
+/content/*
+  Cache-Control: no-cache
+
+/images/*
+  Cache-Control: public, max-age=604800

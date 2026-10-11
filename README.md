@@ -2,14 +2,15 @@
 
 A plain HTML/CSS/JS site. All words and photos live in `content/site.json` and `images/`,
 and Nadean edits them through **Pages CMS** (a free web admin with drag-and-drop uploads).
-Every save commits to GitHub, and Netlify republishes the site in about a minute.
+Every save commits to GitHub, and Cloudflare Pages republishes the site in about a minute.
 
 ```
 index.html, style.css, main.js   the site
 content/site.json                name, bio, email, photo list
 images/                          uploaded photos (sample-*.svg are placeholders to delete)
 .pages.yml                       what the admin panel shows
-netlify.toml                     hosting settings
+_headers                         cache settings for Cloudflare Pages
+netlify.toml                     old Netlify settings (no longer used)
 ```
 
 ## One-time setup (about 30 minutes)
