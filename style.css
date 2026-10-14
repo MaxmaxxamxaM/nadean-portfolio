@@ -197,9 +197,15 @@ h2 {
 .viewer[open] { display: flex; }
 .viewer::backdrop { background: var(--scrim); }
 .viewer-top { display: flex; justify-content: space-between; align-items: center; }
-.viewer-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; }
-.viewer-media { height: 100%; min-width: 0; display: grid; place-items: center; }
-.viewer-media img { max-height: 100%; max-width: 100%; object-fit: contain; height: 100%; }
+.viewer-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: minmax(0, 1fr); align-items: center; gap: 12px; }
+.viewer-media { height: 100%; min-width: 0; min-height: 0; display: grid; place-items: center; }
+/* Fit the photo inside the screen; never enlarge it past its own size */
+.viewer-media img {
+  width: auto; height: auto; max-width: 100%;
+  max-height: calc(100vh - 150px);
+  max-height: calc(100dvh - 150px);
+  object-fit: contain;
+}
 .viewer-media iframe, .viewer-media video {
   width: min(100%, calc((100vh - 140px) * 16 / 9)); aspect-ratio: 16 / 9; max-height: 100%;
   border: 0; background: #000;
