@@ -126,7 +126,9 @@ h2 {
 .count { color: var(--muted); }
 
 /* Masonry wall */
-.grid { columns: 3 300px; column-gap: clamp(14px, 2vw, 28px); }
+/* Columns are filled in list order by main.js: across the top row, then each photo under the shortest column */
+.grid { display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 28px); }
+.grid-col { flex: 1 1 0; min-width: 0; }
 .tile { break-inside: avoid; margin: 0 0 clamp(22px, 3vw, 40px); }
 .tile button { display: block; width: 100%; padding: 0; border: 0; background: var(--surface); cursor: zoom-in; overflow: hidden; }
 .tile img { width: 100%; height: auto; transition: transform 0.6s ease, opacity 0.4s ease; }

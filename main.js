@@ -155,13 +155,54 @@
     $("lead").querySelector("button").addEventListener("click", () => openViewer("photography", 0));
   }
 
+  // Staggered wall that keeps list order: the first photos run across the top row,
+  // then each next photo goes under whichever column is currently shortest.
+  function masonry(grid, tiles) {
+    const MIN_COL = 300;
+    const ratios = tiles.map(() => 1.25); // height / width until the image has loaded
+    let lastKey = "";
+    function layout() {
+      const width = grid.clientWidth;
+      if (!width) return; // hidden tab; laid out when it is shown
+      const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+      const n = Math.max(1, Math.min(3, Math.floor((width + gap) / (MIN_COL + gap))));
+      const key = n + ":" + ratios.join(",");
+      if (key === lastKey) return;
+      lastKey = key;
+      const cols = Array.from({ length: n }, () => {
+        const c = document.createElement("div");
+        c.className = "grid-col";
+        return c;
+      });
+      const heights = new Array(n).fill(0);
+      tiles.forEach((t, i) => {
+        const k = heights.indexOf(Math.min(...heights)); // leftmost on ties
+        cols[k].appendChild(t);
+        heights[k] += ratios[i] + 0.12; // 0.12 ≈ caption and spacing, in column widths
+      });
+      grid.replaceChildren(...cols);
+    }
+    let queued = false;
+    const relayout = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; layout(); });
+    };
+    tiles.forEach((t, i) => {
+      const img = t.querySelector("img");
+      img.loading = "eager";
+      const known = () => {
+        if (img.naturalWidth) { ratios[i] = img.naturalHeight / img.naturalWidth; relayout(); }
+      };
+      if (img.complete) known(); else img.addEventListener("load", known, { once: true });
+    });
+    new ResizeObserver(relayout).observe(grid);
+    layout();
+  }
+
   // Photography wall skips the lead image, which is already shown large above
-  lists.photography.slice(1).forEach((item, i) => {
-    $("grid-photography").appendChild(tile(item, () => openViewer("photography", i + 1)));
-  });
-  lists.modeling.forEach((item, i) => {
-    $("grid-modeling").appendChild(tile(item, () => openViewer("modeling", i)));
-  });
+  masonry($("grid-photography"), lists.photography.slice(1).map((item, i) => tile(item, () => openViewer("photography", i + 1))));
+  masonry($("grid-modeling"), lists.modeling.map((item, i) => tile(item, () => openViewer("modeling", i))));
   videos.forEach((v, i) => {
     const item = lists.video[i];
     const fig = document.createElement("figure");
