@@ -39,5 +39,7 @@ YouTube or Vimeo (unlisted is fine) and paste the link. YouTube covers appear au
 and Vimeo videos need a cover image uploaded. A tab with no entries is hidden from the site.
 Each tab has its own link: `yourdomain.com/#photography`, `#modeling`, `#video`.
 
-Tips: export photos as JPG, about 2400px on the long side and under 1 MB each, so
-the site stays fast.
+Photos can be uploaded at full size. A GitHub Action (`.github/workflows/resize-images.yml`)
+runs after every upload and shrinks anything over 3000px on its long side, keeping the same
+filename, then republishes the site. Resized files also lose their camera data, including GPS
+location. Upload JPG rather than HEIC: most browsers can't show HEIC files.
