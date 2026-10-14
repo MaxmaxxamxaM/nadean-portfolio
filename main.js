@@ -144,11 +144,12 @@
     return fig;
   }
 
-  // Lead image: the first landscape photograph
+  // Lead image: the first photograph, shown whole over a blurred copy of itself
   if (photos.length) {
     const lead = lists.photography[0];
     $("lead-img").src = lead.src;
     $("lead-img").alt = lead.alt;
+    $("lead").querySelector("button").style.setProperty("--lead-bg", "url(" + JSON.stringify(encodeURI(lead.src)) + ")");
     caption($("lead-cap"), ...lead.cap);
     $("lead").hidden = false;
     $("lead").querySelector("button").addEventListener("click", () => openViewer("photography", 0));

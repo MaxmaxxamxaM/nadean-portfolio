@@ -84,8 +84,20 @@ main, .foot { max-width: var(--max); margin-inline: auto; padding-inline: var(--
 
 /* Lead photograph */
 .lead { margin: 0 0 clamp(56px, 8vw, 104px); }
-.lead-open { display: block; width: 100%; padding: 0; border: 0; background: var(--surface); cursor: zoom-in; }
-.lead-open img { width: 100%; max-height: 82vh; object-fit: cover; }
+/* The whole photo is shown, centered. Portrait shots sit on a blurred copy of themselves. */
+.lead-open {
+  position: relative; display: block; width: 100%; padding: 0; border: 0; overflow: hidden;
+  background: var(--surface); cursor: zoom-in;
+}
+.lead-open::before {
+  content: ""; position: absolute; inset: -40px;
+  background: var(--lead-bg, none) center / cover no-repeat;
+  filter: blur(36px) saturate(1.1); opacity: 0.55;
+}
+.lead-open img {
+  position: relative; width: auto; max-width: 100%; max-height: 82vh;
+  margin-inline: auto; object-fit: contain;
+}
 .cap {
   display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline;
   margin: 12px 0 0; font-size: 0.95rem;
